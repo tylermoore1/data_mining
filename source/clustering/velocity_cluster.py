@@ -36,19 +36,23 @@ data = pd.read_csv('../team_data/team_data2.csv')
 # plt.scatter(f1, f2, c='black', s=7)
 # plt.show()
 
+#need to put just the attributes we need into an array so that we can cluster
 dfNew = data[['speed', 'team_placement']]
 X = dfNew.as_matrix(columns = None)
 
 
+#run k means algorithm
 kmeans = KMeans(n_clusters=4)
 kmeans.fit(X)
 y_kmeans = kmeans.predict(X)
 
+#plot all the points
 plt.scatter(X[:, 0], X[:, 1], c=y_kmeans, s=50, cmap='viridis')
 
 centroids = kmeans.cluster_centers_
 labels = kmeans.labels_
 
+#plot all the centroids with X's to show where they are at
 plt.scatter(centroids[:, 0],centroids[:, 1], marker = "x", s=150, linewidths = 5, zorder = 10)
 
 plt.show()

@@ -25,10 +25,15 @@ def average_placement():
     placement2 = 0
     placement3 = 0
     for index, row in data.iterrows():
+        #get number of kills for the team
         kills = row['player_kills']
+        #we are using conditional probability to see what the average placement the team finishes in
+
+        #given they have less than 3 kills, what placement would they finish
         if (kills < 3):
             placement1 += row['team_placement']
             k1 += 1
+        #same thing with the next two if statements
         elif (kills >= 3 and kills < 8):
             placement2 += row['team_placement']
             k2 += 1
@@ -36,6 +41,7 @@ def average_placement():
             placement3 += row['team_placement']
             k3 += 1
 
+    #find average placement
     placement1 /= k1
     placement2 /= k2
     placement3 /= k3
@@ -44,6 +50,7 @@ def average_placement():
     print ("Average Placement for 3 or more kills and less than 8: " + str(placement2))
     print ("Average Placement for 8 or more kills: " + str(placement3) + '\n')
 
+#this function is to see the winning percentage for having a certain number of kills
 def win_percentage():
     win1 = 0
     total1 = 0
@@ -56,12 +63,15 @@ def win_percentage():
     for index, row in data.iterrows():
         kills = row['player_kills']
         placement = row['team_placement']
+
+        #using conditional probability again to see if having less than 3 kills results in getting wins
         if (kills < 3):
             if (placement == 1):
                 win1 += 1
 
             total1 += 1
 
+        #same thing as above, but kills need to be between 3 and 8
         elif (kills >= 3 and kills < 8):
             if (placement == 1):
                 win2 += 1
@@ -74,6 +84,7 @@ def win_percentage():
 
             total3 += 1
 
+    #find average winning percentage
     win_percent1 = (win1 / total1) * 100
     win_percent2 = (win2 / total2) * 100
     win_percent3 = (win3  / total3) * 100

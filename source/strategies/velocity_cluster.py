@@ -8,7 +8,7 @@ from sklearn.cluster import KMeans
 #100 is not for anything
 # cluster_array = [[0.25], [0.5], [0.75], [1], [1.25], [1.5], [1.75], [2], [2.25], [2.5], [2.75], [3]]
 
-data = pd.read_csv('team_data3.csv')
+data = pd.read_csv('../team_data/team_data3.csv')
 
 #---------------this is us trying to actually implement the kmeans algorithm before we realized
 #there was a python libary for it ---------------
@@ -30,11 +30,6 @@ data = pd.read_csv('team_data3.csv')
 #     temp = int(temp)
 #     cluster_array[temp].append(velocity)
 # print (cluster_array[0])
-
-# f1 = data['speed'].values
-# f2 = data['team_placement'].values
-# plt.scatter(f1, f2, c='black', s=7)
-# plt.show()
 
 #need to put just the attributes we need into an array so that we can cluster
 dfNew = data[['speed', 'team_placement']]

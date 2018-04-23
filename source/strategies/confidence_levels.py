@@ -93,9 +93,36 @@ def win_percentage():
     print ("Percentage for first place finish with 3 or more kills and less than 8: " + str(round(win_percent2, 2)) + '%')
     print ("Percentage for first place finish with more than or equal to 8 kills: " + str(round(win_percent3, 2)) + '%')
 
+def final_percentage():
+    kills = 0
+    placement = 0
+    speed = 0
+    win1 = 0
+    total1 = 0
+    for index, row in data.iterrows():
+        kills = row['player_kills']
+        placement = row['team_placement']
+        speed = row['speed']
+
+        #we are using 1.7 and 2 because from our clustering data, we saw the centroid was around a 1.7 and 2
+        #for best placement
+        if (kills >= 8 and speed >= 1.8 and speed <= 2.0):
+            if (placement == 1):
+                win1 += 1
+
+            total1 += 1
+
+    win_percent = (win1 / total1) * 100
+
+    print ("Win Percentage for first place finish with a speed over 1.7 and more than 8 kills: " + str(round(win_percent, 2)) + '%')
+
 
 #call function function
 average_placement()
 
 #call win percentage function
 win_percentage()
+
+#now we want to combine our two findings, (a speed of over 2 and more than 8 kills) to see if
+#winning percentage goes way up
+final_percentage()

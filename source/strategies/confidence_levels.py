@@ -26,18 +26,18 @@ def average_placement():
     placement3 = 0
     for index, row in data.iterrows():
         #get number of kills for the team
-        kills = row['player_kills']
+        kills = row['player_kills'] / row['party_size']
         #we are using conditional probability to see what the average placement the team finishes in
 
         #given they have less than 3 kills, what placement would they finish
-        if (kills < 3):
+        if (kills < 1):
             placement1 += row['team_placement']
             k1 += 1
         #same thing with the next two if statements
-        elif (kills >= 3 and kills < 8):
+        elif (kills >= 1 and kills < 3):
             placement2 += row['team_placement']
             k2 += 1
-        elif (kills >= 8):
+        elif (kills >= 3):
             placement3 += row['team_placement']
             k3 += 1
 
@@ -46,9 +46,9 @@ def average_placement():
     placement2 /= k2
     placement3 /= k3
 
-    print ("Average Placement for less than 3 kills: " + str(placement1))
-    print ("Average Placement for 3 or more kills and less than 8: " + str(placement2))
-    print ("Average Placement for 8 or more kills: " + str(placement3) + '\n')
+    print ("Average Placement for less than 1 kills: " + str(placement1))
+    print ("Average Placement for 1 or more kills and less than 3: " + str(placement2))
+    print ("Average Placement for 3 or more kills: " + str(placement3) + '\n')
 
 #this function is to see the winning percentage for having a certain number of kills
 def win_percentage():
@@ -61,24 +61,24 @@ def win_percentage():
     kills = 0
     placement = 0
     for index, row in data.iterrows():
-        kills = row['player_kills']
+        kills = row['player_kills'] / row['party_size']
         placement = row['team_placement']
 
         #using conditional probability again to see if having less than 3 kills results in getting wins
-        if (kills < 3):
+        if (kills < 1):
             if (placement == 1):
                 win1 += 1
 
             total1 += 1
 
         #same thing as above, but kills need to be between 3 and 8
-        elif (kills >= 3 and kills < 8):
+        elif (kills >= 1 and kills < 3):
             if (placement == 1):
                 win2 += 1
 
             total2 += 1
 
-        elif (kills >= 8):
+        elif (kills >= 3):
             if (placement == 1):
                 win3 += 1
 
@@ -89,9 +89,9 @@ def win_percentage():
     win_percent2 = (win2 / total2) * 100
     win_percent3 = (win3  / total3) * 100
 
-    print ("Percentage for first place finish with less than 3 kills: " + str(round(win_percent1, 2)) + '%')
-    print ("Percentage for first place finish with 3 or more kills and less than 8: " + str(round(win_percent2, 2)) + '%')
-    print ("Percentage for first place finish with more than or equal to 8 kills: " + str(round(win_percent3, 2)) + '%')
+    print ("Percentage for first place finish with less than 1 kills: " + str(round(win_percent1, 2)) + '%')
+    print ("Percentage for first place finish with 1 or more kills and less than 3: " + str(round(win_percent2, 2)) + '%')
+    print ("Percentage for first place finish with more than or equal to 3 kills: " + str(round(win_percent3, 2)) + '%\n')
 
 def final_percentage():
     kills = 0
@@ -106,7 +106,7 @@ def final_percentage():
 
         #we are using 1.7 and 2 because from our clustering data, we saw the centroid was around a 1.7 and 2
         #for best placement
-        if (kills >= 8 and speed >= 1.8 and speed <= 2.0):
+        if (kills >= 3 and speed >= 1.8 and speed <= 2.0):
             if (placement == 1):
                 win1 += 1
 
@@ -114,7 +114,7 @@ def final_percentage():
 
     win_percent = (win1 / total1) * 100
 
-    print ("Win Percentage for first place finish with a speed over 1.7 and more than 8 kills: " + str(round(win_percent, 2)) + '%')
+    print ("Win Percentage for first place finish with a speed over 1.7 and more than 3 kills: " + str(round(win_percent, 2)) + '%')
 
 
 #call function function
